@@ -9,7 +9,8 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post("http://localhost:3002/auth/signup", form);
+      const res = await axios.post("https://zerodha-backend-ojuv.onrender.com/auth/signup", form);
+
 
     if (res.data.success) {
       alert("Signup successful");
