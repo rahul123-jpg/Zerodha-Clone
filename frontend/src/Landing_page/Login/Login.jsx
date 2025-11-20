@@ -7,7 +7,8 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post("http://localhost:3002/auth/login", form);
+        const res = await axios.post("https://zerodha-backend-ojuv.onrender.com/auth/login", form);
+
 
     if (res.data.success) {
       localStorage.setItem("loggedIn", "true");
