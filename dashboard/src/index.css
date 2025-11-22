@@ -845,90 +845,266 @@ hr {
 
 
 
-/* responsive */
 
 
-/* ----------------------- RESPONSIVE NAVBAR ----------------------- */
 
+
+
+
+/* ===========================
+   Menu + Hamburger — FINAL
+   Paste this at the END of your CSS
+   Works with your Menu.js (uses .menus.open + .hamburger .bar .change*)
+=========================== */
+
+.menu-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  position: relative;
+  background: #fff;
+  z-index: 50;
+}
+
+/* Logo image sizing (in case) */
+.menu-container img {
+  width: 48px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Desktop menu (default) */
+.menus {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  box-sizing: border-box;
+}
+
+.menus ul {
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menus ul li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Hamburger (three bars) - hidden on desktop */
 .hamburger {
   display: none;
   flex-direction: column;
-  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  -webkit-tap-highlight-color: transparent;
 }
 
+/* bars */
 .bar {
   width: 28px;
   height: 3px;
-  background-color: #444;
-  margin: 5px 0;
-  transition: 0.4s;
+  background: #222;
+  border-radius: 2px;
+  transition: transform 0.28s ease, opacity 0.28s ease;
 }
 
-/* Hamburger Animation */
+/* animation utility classes already used by Menu.js */
 .change1 {
-  transform: rotate(-45deg) translate(-6px, 6px);
+  transform: rotate(45deg) translate(5px, 5px);
 }
 .change2 {
   opacity: 0;
 }
 .change3 {
-  transform: rotate(45deg) translate(-6px, -6px);
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Mobile Menu Closed by Default */
-.menus {
-  transition: all 0.3s ease;
+/* Profile dropdown basic reset (will be inside .menus) */
+.profile-dropdown {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  padding: 10px;
+  border-radius: 6px;
+  position: absolute;
+  right: 16px;
+  top: calc(100% + 8px);
+  z-index: 200;
 }
 
-@media (max-width: 768px) {
-  .menus {
-    display: none;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background: white;
-    width: 200px;
-    padding: 20px;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
-    border-radius: 6px;
-    flex-direction: column;
-  }
+/* ---------------- MOBILE ---------------- */
+@media (max-width: 900px) {
 
-  .menus.open {
-    display: block;
-  }
-
-  .menus ul {
-    display: block;
-  }
-
-  .menus li {
-    margin: 20px 0;
-    display: block;
-  }
-
-  .menu-container {
-    justify-content: space-between;
-  }
-
+  /* show hamburger, hide desktop inline menu */
   .hamburger {
+    display: flex !important;
+    cursor: pointer;
+    z-index: 200;
+  }
+
+  /* hide inline menu */
+  .menus {
+    display: none !important;
+  }
+
+  /* when open class is present (set by Menu.js), show it as a drawer */
+  .menus.open {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    position: absolute;
+    top: 56px;                 /* below topbar */
+    right: 0;
+    width: 240px;
+    max-width: 85%;
+    background: #ffffff;
+    padding: 12px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    border-left: 1px solid #eee;
+    border-radius: 0 0 6px 6px;
+    z-index: 300;
+  }
+
+  .menus.open ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .menus.open ul li {
+    padding: 6px 4px;
+  }
+
+  .menus.open hr {
+    margin: 10px 0;
+    border: none;
+    height: 1px;
+    background: #f1f1f1;
+  }
+
+  /* make profile block inside drawer neat */
+  .menus.open .profile {
+    margin-top: 8px;
     display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
-  .profile {
-    margin-top: 20px;
+  /* ensure Menu covers above watchlist, content */
+  .menus.open {
+    /* ensure it sits above other fixed elements */
+    z-index: 9999;
   }
 
-  .profile-dropdown {
-    background: #fff;
-    padding: 10px;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
-    border-radius: 4px;
-    margin-top: 10px;
+  /* small-screen layout adjustments so menu doesn't push everything off */
+  .dashboard-container {
+    flex-direction: column;
+    height: auto !important;
+  }
+
+  /* content and watchlist stack under the topbar + menu */
+  .content {
+    width: 100% !important;
+    margin-top: 0 !important;
+    box-sizing: border-box;
+  }
+
+  .watchlist-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-left: none !important;
+    margin-top: 0 !important;
+    box-sizing: border-box;
+  }
+
+  /* small tweak for menu-item text visibility */
+  .menu {
+    font-size: 0.95rem;
+    padding: 6px 4px;
+    color: #333;
+  }
+}
+
+/* ---------------- EXTRA: close menu if larger screen restores */
+@media (min-width: 901px) {
+  .menus {
+    display: flex !important;
+    position: relative;
+    top: auto;
+    right: auto;
+    width: auto;
+    padding: 0;
+    box-shadow: none;
   }
 }
 
 
 
 
+.orders-container {
+  margin: 30px auto;
+  width: 90%;
+  font-family: "Inter", sans-serif;
+}
 
+.orders-title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 0 4px #e5e5e5;
+}
+
+.orders-table thead {
+  background: #f8f8f8;
+}
+
+.orders-table th {
+  padding: 12px 10px;
+  font-size: 0.85rem;
+  color: #6a6a6a;
+  font-weight: 400;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.orders-table td {
+  padding: 14px 10px;
+  font-size: 0.9rem;
+  color: #444;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: center;
+}
+
+.orders-table tr:hover {
+  background-color: #fafafa;
+}
+
+.text-buy {
+  color: #0b9c38;
+  font-weight: 600;
+}
+
+.text-sell {
+  color: #e63946;
+  font-weight: 600;
+}
+
+.no-orders {
+  text-align: center;
+  padding: 40px 0;
+  color: #888;
+  font-size: 1rem;
+}
