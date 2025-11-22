@@ -6,7 +6,7 @@ const Orders = () => {
 
   const loadOrders = () => {
     axios
-      .get("http://localhost:3002/getOrders")
+      .get("https://zerodha-backend-ojuv.onrender.com/getOrders")
       .then((res) => setOrders(res.data))
       .catch((err) => console.log(err));
   };
