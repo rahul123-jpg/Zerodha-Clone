@@ -14,11 +14,12 @@ const BuyActionWindow = ({ uid, mode }) => {
   const ctx = useContext(GeneralContext);
 
   const handleTradeClick = () => {
-    axios.post("http://localhost:3002/newOrder", {
+    axios.post("https://zerodha-backend-ojuv.onrender.com/newOrder", {
       name: uid,
       qty: stockQuantity,
       price: stockPrice,
       mode: mode, // BUY or SELL send hoga
+       product: "MIS"
     });
 
     if (mode === "BUY") ctx.closeBuyWindow();
