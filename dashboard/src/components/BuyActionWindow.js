@@ -1,10 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-
 import axios from "axios";
-
 import GeneralContext from "./GeneralContext";
-
 import "./BuyActionWindow.css";
 
 const BuyActionWindow = ({ uid, mode }) => {
@@ -13,15 +10,44 @@ const BuyActionWindow = ({ uid, mode }) => {
 
   const ctx = useContext(GeneralContext);
 
-  const handleTradeClick = () => {
-    axios.post("https://zerodha-backend-ojuv.onrender.com/newOrder", {
-      name: uid,
-      qty: stockQuantity,
-      price: stockPrice,
-      mode: mode, // BUY or SELL send hoga
-       product: "MIS"
-    });
+  const handleTradeClick = async () => {
 
+    // 1️⃣ GET TOKEN FROM LOCALSTORAGE
+    const token = localStorage.getItem("token");
+
+    // 2️⃣ IF TOKEN MISSING → LOGIN PAGE PAR BHEJ DE
+    if (!token) {
+      alert("Please login first to place orders!");
+      window.location.href = "https://zeodha-landing-pagef2.netlify.app/login"; 
+      return;
+    }
+
+    // 3️⃣ SEND ORDER WITH TOKEN
+    try {
+      await axios.post(
+        "https://zerodha-backend-ojuv.onrender.com/newOrder",
+        {
+          name: uid,
+          qty: stockQuantity,
+          price: stockPrice,
+          mode: mode, 
+          product: "MIS"
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        }
+      );
+
+      alert("Order Placed Successfully!");
+
+    } catch (err) {
+      console.log(err);
+      alert("Order failed! Unauthorized or server error.");
+    }
+
+    // close popups
     if (mode === "BUY") ctx.closeBuyWindow();
     else ctx.closeSellWindow();
   };
