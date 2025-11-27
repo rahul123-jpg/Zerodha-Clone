@@ -11,7 +11,7 @@ export default function Login() {
 
     if (res.data.success) {
       localStorage.setItem("loggedIn", "true");
-        window.location.href = "https://zerodha-dashboard-b8.netlify.app/"; 
+        window.location.href = "https://zerodha-dashboard-b8.netlify.app"; 
     } else {
       alert(res.data.message);
     }
@@ -31,13 +31,17 @@ export default function Login() {
           type="email"
           placeholder="Email"
           style={styles.input}
+          required={true}
+           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
 
         <input
           type="password"
           placeholder="Password"
+          required={true}
           style={styles.input}
+            value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
 
