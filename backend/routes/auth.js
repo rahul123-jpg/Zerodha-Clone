@@ -19,6 +19,10 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    return res.json({ success: false, message: "Email or password missing" });
+  }
+
   const user = await User.findOne({ email });
   if (!user) return res.json({ success: false, message: "User not found" });
 
@@ -27,5 +31,6 @@ router.post("/login", async (req, res) => {
 
   res.json({ success: true, message: "Login successful" });
 });
+
 
 module.exports = router;
