@@ -34,6 +34,7 @@ export default function Signup() {
             style={styles.input}
             type="text"
             placeholder="Full Name"
+            required={true}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
 
@@ -41,6 +42,7 @@ export default function Signup() {
             style={styles.input}
             type="email"
             placeholder="Email"
+            required={true}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
 
@@ -48,6 +50,7 @@ export default function Signup() {
             style={styles.input}
             type="password"
             placeholder="Password"
+            required={true}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
 
