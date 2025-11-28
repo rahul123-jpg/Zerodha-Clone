@@ -81,14 +81,14 @@ const Menu = () => {
 
         {/* Profile */}
         <div className="profile" onClick={toggleProfile}>
-          <div className="avatar">ZU</div>
+          <div className="avatar"></div>
           <p className="username">USERID</p>
         </div>
 
         {isProfileDropdownOpen && (
           <div className="profile-dropdown">
-            <p>Profile</p>
-            <p>Logout</p>
+          
+             <a className="text" href="https://zeodha-landing-pagef2.netlify.app/">Logout</a>
           </div>
         )}
       </div>
