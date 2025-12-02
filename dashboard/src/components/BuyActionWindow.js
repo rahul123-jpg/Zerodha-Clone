@@ -8,6 +8,9 @@ const BuyActionWindow = ({ uid, mode }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0.0);
 
+  // NEW: product type state (CNC / MIS)
+  const [productType, setProductType] = useState("CNC");
+
   const ctx = useContext(GeneralContext);
 
   // ==========================
@@ -68,7 +71,7 @@ const BuyActionWindow = ({ uid, mode }) => {
       qty: stockQuantity,
       price: stockPrice,
       mode: mode,
-      product: "MIS",
+      product: productType, // FIXED
     });
 
     if (mode === "BUY") ctx.closeBuyWindow();
@@ -90,10 +93,23 @@ const BuyActionWindow = ({ uid, mode }) => {
 
         <div className="market-options">
           <label>
-            <input type="radio" defaultChecked /> CNC
+            <input
+              type="radio"
+              value="CNC"
+              checked={productType === "CNC"}
+              onChange={() => setProductType("CNC")}
+            />
+            CNC
           </label>
+
           <label>
-            <input type="radio" /> MIS
+            <input
+              type="radio"
+              value="MIS"
+              checked={productType === "MIS"}
+              onChange={() => setProductType("MIS")}
+            />
+            MIS
           </label>
         </div>
       </div>
