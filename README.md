@@ -43,15 +43,6 @@ Password hashing (secure authentication)
 Auth-protected dashboard routes
 
 
-🎯 Core Use Cases
-
-Buy Stocks: Add stocks to your holdings with quantity & price.
-
-Sell Stocks: Reduce holdings or exit positions.
-
-View Holdings: See all stocks currently owned with market value.
-
-View Positions: Check current P&L, average price, quantity, etc.
 
 
 🏁 How to Run
